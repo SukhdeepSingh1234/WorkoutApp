@@ -10,7 +10,7 @@ function Card({ title, time,exerciseCount, image,onPress }) {
 
     <TouchableWithoutFeedback onPress={onPress} >
       <View style={styles.card}>
-        <ImageBackground style={styles.image} source={image} >
+        <ImageBackground  resizeMode="cover" style={styles.image} source={image} >
             <View style={styles.container} >
                 <View>
                     <Text style={{color:colors.white,fontWeight:"900",fontSize:22}} >{title}</Text>
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 140,
+
   },
   subTitle: {
     flexDirection: 'row',
