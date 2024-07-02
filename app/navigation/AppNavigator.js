@@ -8,6 +8,7 @@ import MainScreen from "../screens/MainScreen";
 import Challenges from "../screens/Challenges";
 import WorkoutProgrees from "../screens/WorkoutProgrees";
 import UserProfile from "../screens/UserProfile";
+import WorkoutNavigation from "./WorkoutNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +16,7 @@ const AppNavigator = () => (
   <Tab.Navigator screenOptions={{ headerShown: false }} >
     <Tab.Screen
       name="Workout"
-      component={MainScreen}
+      component={WorkoutNavigation}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="dumbbell" color={color} size={size} />

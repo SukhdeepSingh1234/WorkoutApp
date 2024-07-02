@@ -1,48 +1,47 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import Card from './Card'
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import Card from './Card';
 
-export default function ({heading}) {
+export default function CategoryExercises({ heading, navigation }) {
     const Beginner = [
         {
-          id: 1,
-          title: "ABS BEGINNER",
-          time: 20,
-          exerciseCount: 16,
-          image: require("../assets/beginner/abs.webp"),
+            id: 1,
+            title: "ABS BEGINNER",
+            time: 20,
+            exerciseCount: 16,
+            image: require("../assets/beginner/abs.webp"),
         },
         {
-          id: 2,
-          title: "CHEST BEGINNER",
-          time: 11,
-          exerciseCount: 11,
-          image: require("../assets/beginner/chest.webp"),
+            id: 2,
+            title: "CHEST BEGINNER",
+            time: 11,
+            exerciseCount: 11,
+            image: require("../assets/beginner/chest.webp"),
         },
         {
-          id: 3,
-          title: "ARM BEGINNER",
-          time: 17,
-          exerciseCount: 19,
-          image: require("../assets/beginner/arms.webp"),
+            id: 3,
+            title: "ARM BEGINNER",
+            time: 17,
+            exerciseCount: 19,
+            image: require("../assets/beginner/arms.webp"),
         },
         {
-          id: 4,
-          title: "LEG BEGINNER",
-          time: 26,
-          exerciseCount: 23,
-          image: require("../assets/beginner/legs.jpeg"),
+            id: 4,
+            title: "LEG BEGINNER",
+            time: 26,
+            exerciseCount: 23,
+            image: require("../assets/beginner/legs.jpeg"),
         },
         {
-          id: 5,
-          title: "SHOULDER & BACK BEGINNER",
-          time: 17,
-          exerciseCount: 17,
-          image: require("../assets/beginner/sholdback.webp"),
+            id: 5,
+            title: "SHOULDER & BACK BEGINNER",
+            time: 17,
+            exerciseCount: 17,
+            image: require("../assets/beginner/sholdback.webp"),
         },
-        
-      ];
+    ];
 
-      const Intermediate = [
+    const Intermediate = [
         {
             id: 1,
             title: "ABS INTERMEDIATE",
@@ -79,7 +78,7 @@ export default function ({heading}) {
             image: require("../assets/intermediate/sholdback.webp"),
         },
     ];
-    
+
     const Advanced = [
         {
             id: 1,
@@ -118,31 +117,38 @@ export default function ({heading}) {
         },
     ];
 
-
-      let exercises;
-      switch (heading) {
-          case 'Beginner':
-              exercises = Beginner;
-              break;
-          case 'Intermediate':
-              exercises = Intermediate;
-              break;
-          case 'Advanced':
-              exercises = Advanced;
-              break;
-          default:
-              exercises = [];
-      }
-  return (
-    <>
-    <View>
-      <Text style={{fontWeight:"900",fontSize:20,marginBottom:10}} >{heading}</Text>
-    {exercises.map((exercise)=>(
-        <Card id={exercise.id} title={exercise.title} exerciseCount={exercise.exerciseCount} time={exercise.time} image={exercise.image}  />
-    ))}
-    </View>
-    </>
-  )
+    let exercises;
+    switch (heading) {
+        case 'Beginner':
+            exercises = Beginner;
+            break;
+        case 'Intermediate':
+            exercises = Intermediate;
+            break;
+        case 'Advanced':
+            exercises = Advanced;
+            break;
+        default:
+            exercises = [];
+    }
+    return (
+        <>
+            <View>
+                <Text style={{ fontWeight: '900', fontSize: 20, marginBottom: 10 }}>{heading}</Text>
+                {exercises.map((exercise) => (
+                    <Card
+                        key={exercise.id}
+                        id={exercise.id}
+                        title={exercise.title}
+                        exerciseCount={exercise.exerciseCount}
+                        time={exercise.time}
+                        image={exercise.image}
+                        onPress={() => navigation.navigate("ExerciseListing",exercise)}
+                    />
+                ))}
+            </View>
+        </>
+    );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

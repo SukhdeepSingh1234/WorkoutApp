@@ -12,6 +12,7 @@ function ListItem({
   image,
   IconComponent,
   onPress,
+  icon
 }) {
   return (
     
@@ -29,11 +30,11 @@ function ListItem({
               </Text>
             )}
           </View>
-          <MaterialCommunityIcons
+          { icon && <MaterialCommunityIcons
             color={colors.medium}
             name="chevron-right"
             size={25}
-          />
+          />}
         </View>
       </TouchableHighlight>
 

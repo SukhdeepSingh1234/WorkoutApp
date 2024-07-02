@@ -58,6 +58,7 @@ export default function UserProfile() {
                     />
                 }
                 onPress={()=> navigation.navigate(item.targetScreen)}
+                icon="true"
                 />
             )}
             />

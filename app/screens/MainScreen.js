@@ -5,7 +5,7 @@ import WorkoutDetails from '../components/WorkoutDetails'
 import colors from '../config/colors'
 import CategoryExercises from '../components/CategoryExercises'
 
-export default function MainScreen() {
+export default function MainScreen({navigation}) {
     const scrollView= useRef()
   return (
     <Screen style={styles.container } >
@@ -22,9 +22,9 @@ export default function MainScreen() {
             <WorkoutDetails  />
         </View>
         <View style={styles.card}>
-        <CategoryExercises heading="Beginner"/>
-        <CategoryExercises heading="Intermediate"/>
-        <CategoryExercises heading="Advanced"/>
+            <CategoryExercises heading="Beginner" navigation={navigation} />
+            <CategoryExercises heading="Intermediate" navigation={navigation} />
+            <CategoryExercises heading="Advanced" navigation={navigation} />
 
         </View>
 
