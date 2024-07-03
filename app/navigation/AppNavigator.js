@@ -1,9 +1,9 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
-import routes from "./routes";
-import { AntDesign } from '@expo/vector-icons';
 import MainScreen from "../screens/MainScreen";
 import Challenges from "../screens/Challenges";
 import WorkoutProgrees from "../screens/WorkoutProgrees";
@@ -12,37 +12,49 @@ import WorkoutNavigation from "./WorkoutNavigation";
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = () => (
-  <Tab.Navigator screenOptions={{ headerShown: false }} >
+
+const AppNavigator = () => {
+
+  const getTabBarVisibility = (route) => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+  
+    if (routeName === "ExerciseListing" || routeName === "WorkoutProgress") {
+      return false; // Hide tabBar for ExerciseListing screen
+    }
+    
+    return true; // Show tabBar for all other screens
+  };
+  
+  return(
+  <Tab.Navigator screenOptions={{ headerShown: false }}>
     <Tab.Screen
       name="Workout"
       component={WorkoutNavigation}
-      options={{
+      options={({ route }) => ({
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="dumbbell" color={color} size={size} />
         ),
-      }}
+        tabBarStyle: {
+          display:
+            getTabBarVisibility(route) === false ? "none" : "flex", // Hide tabBar only for ExerciseListing screen
+        },
+      })}
     />
     <Tab.Screen
       name="Challenges"
       component={Challenges}
-      options={({ navigation }) => ({
-        // tabBarButton: () => (
-        //   <NewListingButton
-        //     onPress={() => navigation.navigate(routes.LISTING_EDIT)}
-        //   />
-        // ),
+      options={{
         tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="sword-cross" size={size} color={color} />
+          <MaterialCommunityIcons name="sword-cross" size={size} color={color} />
         ),
-      })}
+      }}
     />
     <Tab.Screen
       name="Progress"
       component={WorkoutProgrees}
       options={{
         tabBarIcon: ({ color, size }) => (
-            <AntDesign name="barschart" size={size} color={color} />
+          <AntDesign name="barschart" size={size} color={color} />
         ),
       }}
     />
@@ -56,6 +68,6 @@ const AppNavigator = () => (
       }}
     />
   </Tab.Navigator>
-);
+)};
 
 export default AppNavigator;

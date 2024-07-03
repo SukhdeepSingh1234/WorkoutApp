@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
+  Button,
 } from "react-native";
 import React, { useRef } from "react";
 
@@ -15,6 +16,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { workoutMapping } from "../assets/links";
 import ListItemSeparator from "../components/ListItemSeparator";
 import ListItem from "../components/ListItem";
+import AppButton from "../components/Button";
 
 export default function ExerciseListing({ route }) {
   const navigation = useNavigation();
@@ -74,6 +76,9 @@ export default function ExerciseListing({ route }) {
           />
         </View>
       </ScrollView>
+      <View style={styles.buttonCont} >
+       <AppButton title="Start" onPress={() => navigation.navigate("WorkoutProgress")} />
+      </View>
     </View>
   );
 }
@@ -124,4 +129,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     height: 1,
   },
+  buttonCont:{
+    padding: 10,
+  }
 });
