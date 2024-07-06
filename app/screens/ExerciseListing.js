@@ -25,6 +25,8 @@ export default function ExerciseListing({ route }) {
 
   const workouts = workoutMapping[workoutDet.title];
 
+
+
   // Check if workouts data is available and has correct structure
   if (!workouts) {
     console.error(`No workouts found for title: ${workoutDet.title}`);
@@ -77,7 +79,7 @@ export default function ExerciseListing({ route }) {
         </View>
       </ScrollView>
       <View style={styles.buttonCont} >
-       <AppButton title="Start" onPress={() => navigation.navigate("WorkoutProgress")} />
+       <AppButton title="Start" bgcolor="blue" color="white"  onPress={() => navigation.navigate('WorkoutProgressStack', { workouts })} />
       </View>
     </View>
   );
@@ -106,7 +108,6 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "column",
     maxHeight: 190,
-    backgroundColor: "orange",
   },
   barCont: {
     flexDirection: "row",

@@ -18,7 +18,7 @@ const AppNavigator = () => {
   const getTabBarVisibility = (route) => {
     const routeName = getFocusedRouteNameFromRoute(route);
   
-    if (routeName === "ExerciseListing" || routeName === "WorkoutProgress") {
+    if (routeName === "ExerciseListing" || routeName === "WorkoutProgress" || routeName === "WorkoutProgressStack") {
       return false; // Hide tabBar for ExerciseListing screen
     }
     

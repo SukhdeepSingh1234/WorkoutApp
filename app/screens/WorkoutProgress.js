@@ -1,12 +1,14 @@
 import {
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  Modal,
+  Button,
+  Image,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -14,48 +16,84 @@ import { useNavigation } from "@react-navigation/native";
 import AppButton from "../components/Button";
 import { FontAwesome6 } from "@expo/vector-icons";
 
-export default function WorkoutProgress() {
+export default function WorkoutProgress({ route }) {
   const navigation = useNavigation();
+  const { workout, index, total, workouts } = route.params;
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleNext = () => {
+    if (index < total - 1) {
+      const nextWorkout = workouts[index + 1];
+      navigation.navigate("RestScreen", {
+        currentWorkoutIndex: index,
+        totalWorkouts: total,
+        nextWorkout,
+      });
+    } else {
+      navigation.navigate("ExerciseListing");
+    }
+  };
+
+  const handleQuit = () => {
+    setIsModalVisible(true);
+  };
+
+  const confirmQuit = () => {
+    setIsModalVisible(false);
+    navigation.navigate("MainScreen");
+  };
+
+  const cancelQuit = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <Screen style={styles.mainContainer}>
+      <Modal visible={isModalVisible} transparent={true} animationType="slide">
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text>Are you sure you want to quit?</Text>
+            <View style={styles.modalButtons}>
+              <Button title="Yes" onPress={confirmQuit} />
+              <Button title="No" onPress={cancelQuit} />
+            </View>
+          </View>
+        </View>
+      </Modal>
+    <View style={{backgroundColor: colors.blue}}>   
       <View style={styles.container}>
-        <ImageBackground
-          source={require("../assets/gifs/chest/dumbell_fly.gif")}
-          style={styles.bgImage}
-        >
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <MaterialCommunityIcons name="arrow-left" size={30} color="white" />
-          </TouchableOpacity>
-        </ImageBackground>
+        {workout && (
+          <>
+            <Image source={workout.gif} style={styles.bgImage} />
+            <TouchableOpacity style={styles.backButton} onPress={handleQuit}>
+              <MaterialCommunityIcons
+                name="arrow-left"
+                size={30}
+                color="white"
+              />
+            </TouchableOpacity>
+          </>
+        )}
       </View>
-      <View style={styles.headingCont}>
-        <Text style={styles.heading}>DUMBBELL PRESS</Text>
-      </View>
-      <View style={styles.countCont}>
-        <Text style={[styles.countHeading]}>x</Text>
-        <Text style={styles.count}>16</Text>
-      </View>
-      <View style={styles.buttonCont}>
-        <AppButton
-          icon="check"
-          title="DONE"
-          onPress={() => navigation.navigate("WorkoutProgress")}
-        />
-      </View>
-      <View style={styles.navButton}>
-        <View style={styles.icon}>
-          <FontAwesome6 name="backward-step" size={24} color="black" />
-          <Text style={styles.text}>Previous</Text>
+      {workout && (
+        <View style={{backgroundColor: colors.blue, height:"100%" }} >
+          <View style={styles.headingCont}>
+            <Text style={styles.heading}>{workout.title}</Text>
+          </View>
+          <View style={styles.countCont}>
+            <Text style={styles.count}>{workout.exerciseCount}</Text>
+          </View>
+          <View style={styles.buttonCont}>
+            <AppButton
+              title="DONE"
+              bgcolor="white"
+              color="blue"
+              onPress={handleNext}
+            />
+          </View>
         </View>
-        <View style={styles.separator}></View>
-        <View style={styles.icon}>
-          <Text style={styles.text}>Skip</Text>
-          <FontAwesome6 name="forward-step" size={24} color="black" />
-        </View>
-      </View>
+      )}
+       </View>
     </Screen>
   );
 }
@@ -69,14 +107,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     width: "100%",
     height: 400,
-  },
-  gif: {
-    width: "100%",
-    height: "100%",
-    objectFit: "contain",
+    borderBottomLeftRadius:30,
+    borderBottomRightRadius:30,
+    overflow: "hidden",
   },
   bgImage: {
     height: "100%",
+    width: "100%",
+    objectFit: "contain",
   },
   backButton: {
     position: "absolute",
@@ -87,21 +125,21 @@ const styles = StyleSheet.create({
     padding: 2,
   },
   heading: {
-    fontSize: 24,
-    fontWeight: "800",
+    fontSize: 34,
+    fontWeight: "900",
     padding: 18,
     marginVertical: 16,
-    color: colors.black,
+    color: colors.white,
   },
   headingCont: {
     alignItems: "center",
     justifyContent: "center",
   },
   count: {
-    fontSize: 44,
+    fontSize: 34,
     fontWeight: "900",
     marginVertical: 16,
-    color: colors.black,
+    color: colors.white,
   },
   countCont: {
     alignItems: "center",
@@ -113,7 +151,6 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     marginRight: 2,
     marginVertical: 16,
-    color: colors.black,
   },
   buttonCont: {
     marginLeft: 50,
@@ -123,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginTop: 10
+    marginTop: 10,
   },
   separator: {
     backgroundColor: colors.light,
@@ -137,5 +174,23 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     margin: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalContent: {
+    width: 300,
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
   },
 });
