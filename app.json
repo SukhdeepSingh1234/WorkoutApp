@@ -33,6 +33,8 @@
         "projectId": "8fd44837-e7aa-4ea1-a841-ef6f7c65b604"
       }
     },
+    "scheme":"workout-app"
+    ,
     "updates": {
       "url": "https://u.expo.dev/8fd44837-e7aa-4ea1-a841-ef6f7c65b604"
     }

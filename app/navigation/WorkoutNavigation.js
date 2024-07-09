@@ -8,7 +8,7 @@ import WorkoutProgressStack from './WorkoutProgressStack';
 
 const Stack = createStackNavigator();
 
-const WorkoutNavigation = ({ navigation, route }) => {
+const WorkoutNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainScreen" component={MainScreen} />

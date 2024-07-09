@@ -22,18 +22,24 @@ export default function RestScreen({ route, navigation }) {
     }, [])
   );
 
+  useEffect(() => {
+    if (timer === 0) {
+      handleNext();
+    }
+  }, [timer]);
+
   const addTwentySeconds = () => {
     setTimer((prev) => prev + 20);
   };
 
-
   const handleNext = () => {
     if (currentWorkoutIndex < totalWorkouts - 1) {
-      setTimer(30)
-      navigation.navigate(`WorkoutProgress_${currentWorkoutIndex + 1}`);
+      setTimer(30);
+      navigation.navigate(`WorkoutProgress_${currentWorkoutIndex}`);
     } else {
-      navigation.navigate("ExerciseListing");
+      navigation.navigate("WorkoutCompletion");
     }
+  
   };
   return (
     <Screen style={{backgroundColor: colors.white}} >
@@ -55,9 +61,9 @@ export default function RestScreen({ route, navigation }) {
         </View>
         <View  style={{justifyContent:"center", alignItems:"center", paddingTop:30, paddingBottom:20}}>
           <View>
-              <Text style={[styles.text, {fontSize:24}]}>REST</Text>
+              <Text style={[styles.text, {fontSize:34}]}>REST</Text>
           </View>
-          <View><Text style={[styles.text, {fontSize:50}]}>{timer}</Text></View>
+          <View><Text style={[styles.text, { fontSize: 50 }]}>{timer}</Text></View>
         </View>
         <View style={{paddingLeft:40, paddingRight:40}} >
           <AppButton title='+20 Seconds'onPress={addTwentySeconds} bgcolor="white" color="blue"/>

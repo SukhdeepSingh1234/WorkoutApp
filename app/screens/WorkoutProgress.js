@@ -21,16 +21,17 @@ export default function WorkoutProgress({ route }) {
   const { workout, index, total, workouts } = route.params;
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  console.log(index,workout)
+
   const handleNext = () => {
     if (index < total - 1) {
-      const nextWorkout = workouts[index + 1];
       navigation.navigate("RestScreen", {
-        currentWorkoutIndex: index,
-        totalWorkouts: total,
-        nextWorkout,
-      });
+    currentWorkoutIndex: index+1,
+    totalWorkouts: workouts.length,
+    nextWorkout: workouts[index + 1]
+  });
     } else {
-      navigation.navigate("ExerciseListing");
+      navigation.navigate("WorkoutCompletion");
     }
   };
 
@@ -60,7 +61,7 @@ export default function WorkoutProgress({ route }) {
           </View>
         </View>
       </Modal>
-    <View style={{backgroundColor: colors.blue}}>   
+    <View style={{backgroundColor: colors.white}}>   
       <View style={styles.container}>
         {workout && (
           <>
@@ -75,8 +76,9 @@ export default function WorkoutProgress({ route }) {
           </>
         )}
       </View>
+      <View style={{width: "100%", height:2, backgroundColor: colors.light}} />
       {workout && (
-        <View style={{backgroundColor: colors.blue, height:"100%" }} >
+        <View style={{backgroundColor: colors.white, height:"100%" }} >
           <View style={styles.headingCont}>
             <Text style={styles.heading}>{workout.title}</Text>
           </View>
@@ -86,8 +88,8 @@ export default function WorkoutProgress({ route }) {
           <View style={styles.buttonCont}>
             <AppButton
               title="DONE"
-              bgcolor="white"
-              color="blue"
+              bgcolor="blue"
+              color="white"
               onPress={handleNext}
             />
           </View>
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     width: "100%",
-    height: 400,
+    height: 380,
     borderBottomLeftRadius:30,
     borderBottomRightRadius:30,
     overflow: "hidden",
@@ -129,17 +131,18 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     padding: 18,
     marginVertical: 16,
-    color: colors.white,
+    color: colors.black,
   },
   headingCont: {
     alignItems: "center",
     justifyContent: "center",
   },
   count: {
-    fontSize: 34,
+    fontSize: 30,
     fontWeight: "900",
     marginVertical: 16,
-    color: colors.white,
+    marginBottom:20,
+    color: colors.blue,
   },
   countCont: {
     alignItems: "center",
@@ -153,6 +156,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   buttonCont: {
+    marginTop:10,
     marginLeft: 50,
     marginRight: 50,
   },
@@ -161,11 +165,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginTop: 10,
-  },
-  separator: {
-    backgroundColor: colors.light,
-    height: 30,
-    width: 2,
   },
   icon: {
     flexDirection: "row",

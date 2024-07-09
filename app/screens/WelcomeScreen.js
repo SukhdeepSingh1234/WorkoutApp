@@ -1,8 +1,11 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import colors from '../config/colors'
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({navigation}) {
+
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.logoCont} >

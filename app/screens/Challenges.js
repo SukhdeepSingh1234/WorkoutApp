@@ -1,69 +1,52 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Screen from '../components/Screen'
 import colors from '../config/colors'
 import AppButton from '../components/Button'
+import WorkoutDoneCard from '../components/WorkoutDoneCard'
 
 
 export default function Challenges() {
 
 
   return (
-    <Screen style={{backgroundColor: colors.white}} >
-      <View style={styles.container}>
-        <View style={styles.imgContainer} >
-          <Image
-            source={require("../assets/gifs/chest/dumbell_fly.gif")} 
-            style={styles.gif}
-          />
+    <Screen style={styles.container} >
+      <TouchableOpacity  >
+        <View style={styles.logoCont} >
+          <Image style={styles.logo} source={require("../assets/google.png")} />
+          <Text style={styles.heading} >Sign in with Google</Text>
         </View>
-        <View style={{padding: 15}} >
-        <View>
-           <Text style={styles.text} > Next {1}/{14}  </Text>
-        </View>
-        <View style={{flexDirection:"row"}} >
-           <Text style={[styles.text,{flex:1}]} > LEG RAISES </Text>
-           <Text style={styles.text} >x16</Text>
-        </View>
-        </View>
-        <View  style={{justifyContent:"center", alignItems:"center", paddingTop:30, paddingBottom:20}}>
-          <View>
-              <Text style={[styles.text, {fontSize:24}]}>REST</Text>
-          </View>
-          <View><Text style={[styles.text, {fontSize:50}]}>00:30</Text></View>
-        </View>
-        <View style={{paddingLeft:40, paddingRight:40}} >
-          <AppButton title='+20 Seconds' bgcolor="white" color="blue"/>
-          <AppButton title='Skip' bgcolor="white" color="blue"/>
-        </View>
+      </TouchableOpacity>
         
-    </View>
-    </Screen>
+    </Screen> 
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.blue,
-    flex:1
+    backgroundColor: colors.lightgrey,
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  gif: {
-    width: "100%",
-    height: "100%",
-    objectFit: "contain"
+  logo:{
+    width:25,
+    height:25,
+    borderRadius: 10,
+    marginRight:10
   },
-  imgContainer:{
-    backgroundColor: colors.white,
-    height: 290,
-    width: "100%",
-    borderBottomLeftRadius:30,
-    borderBottomRightRadius:30,
-
+  logoCont:{
+    flexDirection:"row",
+    alignItems: 'center',
+    justifyContent: "space-between",
+    borderColor: colors.black,
+    borderCurve: "circular",
+    borderRadius: 50,
+    borderWidth: 1.5,
+    padding:10
   },
-  text:{
-    fontSize: 18,
-    color: colors.white,
-    fontWeight: "800",
-    marginBottom: 5
-  }
+  heading:{
+    fontSize: 16,
+    fontWeight: 'bold',
+},
 })
