@@ -12,7 +12,8 @@ function ListItem({
   image,
   IconComponent,
   onPress,
-  icon
+  icon,
+  text
 }) {
   return (
     
@@ -35,6 +36,9 @@ function ListItem({
             name="chevron-right"
             size={25}
           />}
+          {
+            text ? <Text>{text}</Text> : <Text>N/A</Text> 
+          }
         </View>
       </TouchableHighlight>
 

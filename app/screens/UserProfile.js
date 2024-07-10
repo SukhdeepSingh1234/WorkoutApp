@@ -6,59 +6,75 @@ import Icon from '../components/Icon';
 import ListItemSeparator from '../components/ListItemSeparator';
 import ListItem from '../components/ListItem';
 import colors from '../config/colors';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebaseConfig';
+import { useUser } from "../context/UserContext";
+import { Fontisto } from '@expo/vector-icons';
 
 
-const menuItems = [
-    {
-      title: "Account Details",
-      icon: {
-        name: "account",
-        backgroundColor: colors.primary,
-      },
-    },
-    {
-      title: "Workout Settings",
-      icon: {
-        name: "format-list-bulleted",
-        backgroundColor: "orange",
-      },
-    },
-    {
-      title: "General Settings",
-      icon: {
-        name: "email",
-        backgroundColor: colors.secondary,
-      },
-      targetScreen: "Messages",
-    },
-  ];
 
 
 export default function UserProfile() {
+
+  const { user } = useUser();
+  console.log(user)
+  console.log(user.phoneNumber)
+
+  const menuItems = [
+    {
+      id:1,
+      title: "NAME " + " ->",
+      icon: {
+        name: "user-secret",
+        backgroundColor: "red",
+      },
+      text: user.displayName
+    },
+    {
+      title: "EMAIL"+ " ->",
+      icon: {
+        name: "email",
+        backgroundColor: "orange",
+      },
+      text: user.email
+    },
+    {
+      title: "PHONE NO"+ " ->",
+      icon: {
+        name: "phone",
+        backgroundColor: colors.secondary,
+      },
+      text: user.phoneNumber
+    },
+  ];
+
   return (
     <Screen>
         <View style={styles.heading} >
             <Text style={styles.heading} >Profile</Text>
         </View>
         <View style={styles.logoCont} >
-           <Image style={styles.logo} source={require('../assets/logo.webp')} />
+           <Image style={styles.logo} source={{uri : user.photoURL}} />
         </View>
         <View style={styles.container}>
             <FlatList
             data={menuItems}
-            keyExtractor={(menuItem) => menuItem.title}
+            keyExtractor={(menuItem) => menuItem.id}
             ItemSeparatorComponent={ListItemSeparator}
             renderItem={({ item }) => (
                 <ListItem
                 title={item.title}
                 IconComponent={
-                    <Icon
+                    <Fontisto
                     name={item.icon.name}
                     backgroundColor={item.icon.backgroundColor}
+                    color="white"
+                    size={20}
+                    style={{padding:8, borderRadius:50}}
                     />
                 }
                 onPress={()=> navigation.navigate(item.targetScreen)}
-                icon="true"
+                text={item.text}
                 />
             )}
             />
@@ -66,6 +82,8 @@ export default function UserProfile() {
         <ListItem
             title="Log Out"
             IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+            onPress={ async () => await signOut(auth)}
+            text=" "
         />
     </Screen>
   )
