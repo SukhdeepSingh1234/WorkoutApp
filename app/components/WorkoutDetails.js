@@ -3,22 +3,22 @@ import React from 'react'
 import colors from '../config/colors'
 import Icon from './Icon'
 
-export default function () {
+export default function ({workouts, kcal, time}) {
   return (
     <View style={styles.container} >
             <View style={styles.details} >
                 <Icon name= 'medal-outline' backgroundColor={colors.white} iconColor="#F8D210" size={50}  />
-                <Text style={styles.desc} >0</Text>
+                <Text style={styles.desc} >{workouts? workouts : "--"}</Text>
                 <Text style={styles.desc} >Workouts</Text>
             </View>
             <View style={styles.details} >
                 <Icon name= 'fire' backgroundColor={colors.white} iconColor="#FFA500" size={50}/>
-                <Text style={styles.desc}>0</Text>
+                <Text style={styles.desc}>{kcal? kcal: "--" }</Text>
                 <Text style={styles.desc} >Kcal</Text>
             </View>
             <View style={styles.details} >
                 <Icon name= 'clock-time-three-outline' backgroundColor={colors.white} iconColor={colors.black} size={50} />
-                <Text style={styles.desc} >0</Text>
+                <Text style={styles.desc} >{time? time: "--"}</Text>
                 <Text style={styles.desc} >Minutes</Text>
             </View>
         

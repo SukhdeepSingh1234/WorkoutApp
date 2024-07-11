@@ -4,9 +4,11 @@ import Screen from '../components/Screen'
 import WorkoutDetails from '../components/WorkoutDetails'
 import colors from '../config/colors'
 import CategoryExercises from '../components/CategoryExercises'
+import { useUser } from '../context/UserContext'
 
 export default function MainScreen({navigation}) {
     const scrollView= useRef()
+    const { progress } = useUser();
   return (
     <Screen style={styles.container } >
         <View style={styles.headingContainer}>
@@ -19,7 +21,7 @@ export default function MainScreen({navigation}) {
         </View>
         <ScrollView ref={scrollView} >
         <View style={styles.WorkoutDetails} >
-            <WorkoutDetails  />
+            <WorkoutDetails workouts={progress.workouts} kcal={progress.kcal} time={progress.time}/>
         </View>
         <View style={styles.card}>
             <CategoryExercises heading="Beginner" navigation={navigation} />

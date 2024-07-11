@@ -3,34 +3,127 @@ import React, { useRef } from "react";
 import Screen from "../components/Screen";
 import WorkoutDetails from "../components/WorkoutDetails";
 import { Calendar } from "react-native-calendars";
-import colors from "../config/colors";
-import Icon from "../components/Icon";
+import { useUser } from '../context/UserContext'
 import StreakBar from "../components/StreakBar";
 import SummaryList from "../components/SummaryList";
 
 export default function WorkoutProgrees() {
-
-  const summaries= [
+  const { progress } = useUser();
+  const workoutDetails = [
     {
-      id: 1,
+      title: "ABS BEGINNER",
+      workoutTime: 20,
+      Kcal: 200,
+      image: require("../assets/beginner/abs.webp"),
+    },
+    {
+      title: "CHEST BEGINNER",
+      workoutTime: 11,
+      Kcal: 150,
+      image: require("../assets/beginner/chest.webp"),
+    },
+    {
+      title: "ARM BEGINNER",
+      workoutTime: 17,
+      Kcal: 180,
+      image: require("../assets/beginner/arms.webp"),
+    },
+    {
+      title: "LEG BEGINNER",
+      workoutTime: 26,
+      Kcal: 250,
+      image: require("../assets/beginner/legs.jpeg"),
+    },
+    {
+      title: "SHOULDER & BACK BEGINNER",
+      workoutTime: 17,
+      Kcal: 190,
+      image: require("../assets/beginner/sholdback.webp"),
+    },
+    {
       title: "ABS INTERMEDIATE",
       workoutTime: 25,
       Kcal: 218,
-      date: "Jun 27",
-      time: "10:18 pm",
       image: require("../assets/intermediate/abs.jpg"),
-  },
-  {
-      id: 2,
+    },
+    {
       title: "CHEST INTERMEDIATE",
       workoutTime: 15,
       Kcal: 223,
-      date: "Jun 28",
-      time: "19:18 pm",
       image: require("../assets/intermediate/chest.png"),
-  }
-  ]
+    },
+    {
+      title: "ARM INTERMEDIATE",
+      workoutTime: 20,
+      Kcal: 230,
+      image: require("../assets/intermediate/arms.jpg"),
+    },
+    {
+      title: "LEG INTERMEDIATE",
+      workoutTime: 30,
+      Kcal: 300,
+      image: require("../assets/intermediate/legs.jpg"),
+    },
+    {
+      title: "SHOULDER & BACK INTERMEDIATE",
+      workoutTime: 22,
+      Kcal: 250,
+      image: require("../assets/intermediate/sholdback.webp"),
+    },
+    {
+      title: "ABS ADVANCED",
+      workoutTime: 30,
+      Kcal: 320,
+      image: require("../assets/advanced/abs.jpg"),
+    },
+    {
+      title: "CHEST ADVANCED",
+      workoutTime: 20,
+      Kcal: 270,
+      image: require("../assets/advanced/chest.jpg"),
+    },
+    {
+      title: "ARM ADVANCED",
+      workoutTime: 25,
+      Kcal: 280,
+      image: require("../assets/advanced/arms.png"),
+    },
+    {
+      title: "LEG ADVANCED",
+      workoutTime: 35,
+      Kcal: 350,
+      image: require("../assets/advanced/legs.jpg"),
+    },
+    {
+      title: "SHOULDER & BACK ADVANCED",
+      workoutTime: 27,
+      Kcal: 300,
+      image: require("../assets/advanced/sholdback.webp"),
+    },
+  ];
+  
   const scrollView= useRef()
+
+  // Transform history array to markedDates object
+  const markedDates = progress.history.reduce((acc, date) => {
+    acc[date] = { selected: true };
+    return acc;
+  }, {});
+
+  // Match fetched summaries with predefined workout details
+  const summaries = progress.summary?.map((summary, index) => {
+    const details = workoutDetails.find(detail => detail.title === summary.title);
+    return {
+      id: index,
+      title: summary.title,
+      workoutTime: details ? details.workoutTime : "N/A",
+      Kcal: details ? details.Kcal : "N/A",
+      date: new Date(summary.time.seconds * 1000).toLocaleDateString(),
+      time: new Date(summary.time.seconds * 1000).toLocaleTimeString(),
+      image: details ? details.image : null,
+    };
+  }) || [];
+
   return (
     <Screen>
       <View style={styles.heading}>
@@ -38,10 +131,10 @@ export default function WorkoutProgrees() {
       </View>
       <ScrollView ref={scrollView} >
         <View style={styles.WorkoutDetails}>
-          <WorkoutDetails />
+        <WorkoutDetails workouts={progress.workouts} kcal={progress.kcal} time={progress.time}/>
         </View>
         <View style={styles.streakDetails} >
-            <StreakBar/>
+            <StreakBar streak={progress.streak} best_streak={progress.best_streak} />
         </View>
         <View style={styles.heading}>
           <Text style={[styles.heading,{marginTop:0}]}>History</Text>
@@ -52,11 +145,7 @@ export default function WorkoutProgrees() {
           minDate="2024-06-01"
           hideExtraDays={true}
           // markingType="period"
-          markedDates={{
-            "2024-06-24": { selected:true},
-            "2024-06-25": { selected:true}
-          
-          }}
+          markedDates={markedDates}
           />
         </View>
         <View style={styles.heading}>

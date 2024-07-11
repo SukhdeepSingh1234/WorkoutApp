@@ -21,7 +21,6 @@ export default function WorkoutProgress({ route }) {
   const { workout, index, total, workouts } = route.params;
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  console.log(index,workout)
 
   const handleNext = () => {
     if (index < total - 1) {

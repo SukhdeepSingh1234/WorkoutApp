@@ -73,13 +73,14 @@ export default function ExerciseListing({ route }) {
                 title={item.title}
                 image={item.gif}
                 subTitle={`${item.exerciseCount}`}
+                text=" "
               />
             )}
           />
         </View>
       </ScrollView>
       <View style={styles.buttonCont} >
-       <AppButton title="Start" bgcolor="blue" color="white"  onPress={() => navigation.navigate('WorkoutProgressStack', { workouts })} />
+       <AppButton title="Start" bgcolor="blue" color="white"  onPress={() => navigation.navigate('WorkoutProgressStack', { workouts, workoutDet })} />
       </View>
     </View>
   );

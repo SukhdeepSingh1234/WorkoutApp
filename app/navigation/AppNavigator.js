@@ -41,15 +41,6 @@ const AppNavigator = () => {
       })}
     />
     <Tab.Screen
-      name="Challenges"
-      component={Challenges}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="sword-cross" size={size} color={color} />
-        ),
-      }}
-    />
-    <Tab.Screen
       name="Progress"
       component={WorkoutProgrees}
       options={{

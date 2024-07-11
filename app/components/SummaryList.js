@@ -13,14 +13,15 @@ export default function SummaryList({image, title,workoutTime, kcal,time,date}) 
               <Image resizeMode="contain" style={styles.image} source={image} />
           </View>
           <View style={styles.details} >
-              <View>
-                <Text style={{fontWeight:"500"}} >{date},{time}</Text>
+              <View style={{flexDirection:"row"}} >
+                <Text style={{fontWeight:"500" }} >{date} , </Text>
+                <Text style={{fontWeight:"500" }} >{time}</Text>
               </View>
               <View>
-                <Text style={{fontWeight:"900", fontSize:15, marginBottom:5, marginTop:5}}  >{title}</Text>
+                <Text style={{fontWeight:"900", fontSize:15, marginBottom:7, marginTop:6}}  >{title}</Text>
                 </View>
               <View style={{flexDirection:"row"}} >
-                 <Text><Fontisto name="stopwatch" size={24} color="#318CE7" /> {workoutTime} </Text>
+                 <Text><Fontisto name="stopwatch" size={22} color="#318CE7" /> {workoutTime} </Text>
                  <Text> <MaterialCommunityIcons name="fire" size={24} color="orange" /> {kcal} </Text>
               </View>
           </View>
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems: 'center',
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 15,
     margin:5
   },
   summaryDet:{
@@ -46,12 +47,12 @@ const styles = StyleSheet.create({
   image:{
     maxHeight: "100%",
     maxWidth: "100%",
-    objectFit: "cover"
+    objectFit:"fill"
   },
   imageCont:{
     overflow: 'hidden',
     borderRadius: 20,
-    height: 90,
+    height: 80,
     width: 90,
   },
   details:{

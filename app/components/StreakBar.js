@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "../components/Icon";
 import colors from "../config/colors";
 
-export default function StreakBar() {
+export default function StreakBar({streak, best_streak}) {
   return (
     <View style={styles.streak}>
       <View style={styles.streakDet}>
@@ -16,7 +16,7 @@ export default function StreakBar() {
           />
         </View>
         <View>
-          <Text style={{fontWeight:"800",fontSize:30}} >0</Text>
+          <Text style={{fontWeight:"800",fontSize:30}} >{streak}</Text>
         </View>
         <View>
           <Text style={{fontSize:16, marginLeft:4 }}  >Day Streak</Text>
@@ -26,7 +26,7 @@ export default function StreakBar() {
         <Text style={{ color: colors.light, fontWeight: "700" }}>
           Personal Best
         </Text>
-        <Text style={{ marginTop: 2, fontWeight: "800" }}>3 Days</Text>
+        <Text style={{ marginTop: 2, fontWeight: "800" }}>{best_streak} Days</Text>
       </View>
     </View>
   );

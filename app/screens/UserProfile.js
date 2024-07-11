@@ -10,17 +10,16 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { useUser } from "../context/UserContext";
 import { Fontisto } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
 
-export default function UserProfile() {
+export default function UserProfile({navigation}) {
 
-  const { user } = useUser();
-  console.log(user)
-  console.log(user.phoneNumber)
+  const { user ,setUser} = useUser();
 
-  const menuItems = [
+  const menuItems = user ? [
     {
       id:1,
       title: "NAME " + " ->",
@@ -31,6 +30,7 @@ export default function UserProfile() {
       text: user.displayName
     },
     {
+      id:2,
       title: "EMAIL"+ " ->",
       icon: {
         name: "email",
@@ -39,6 +39,7 @@ export default function UserProfile() {
       text: user.email
     },
     {
+      id:3,
       title: "PHONE NO"+ " ->",
       icon: {
         name: "phone",
@@ -46,7 +47,18 @@ export default function UserProfile() {
       },
       text: user.phoneNumber
     },
-  ];
+  ] : [];
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign out from Firebase Auth
+      await AsyncStorage.setItem("@user", JSON.stringify(null)); // Clear user data from AsyncStorage
+      setUser(null); // Clear user context
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
 
   return (
     <Screen>
@@ -54,7 +66,7 @@ export default function UserProfile() {
             <Text style={styles.heading} >Profile</Text>
         </View>
         <View style={styles.logoCont} >
-           <Image style={styles.logo} source={{uri : user.photoURL}} />
+          { user && <Image style={styles.logo} source={{uri : user.photoURL}} />}
         </View>
         <View style={styles.container}>
             <FlatList
@@ -82,7 +94,7 @@ export default function UserProfile() {
         <ListItem
             title="Log Out"
             IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
-            onPress={ async () => await signOut(auth)}
+            onPress={handleLogout}
             text=" "
         />
     </Screen>
