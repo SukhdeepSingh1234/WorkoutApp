@@ -1,4 +1,3 @@
-// WorkoutProgressStack.js
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import WorkoutProgress from "../screens/WorkoutProgress";

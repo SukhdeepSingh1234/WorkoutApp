@@ -2,22 +2,22 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import colors from '../config/colors'
 
-export default function () {
+export default function ({exerciseCount, calories, time}) {
   return (
     <View style={styles.card}>
         <View style={{padding:10, justifyContent:"center", alignItems:"center"}} >
             <Text style={{color:colors.medium ,fontWeight:"600",padding:8}} >Exercises</Text>
-            <Text style={{color:colors.blue, fontWeight:"900",fontSize:20}} >8</Text>
+            <Text style={{color:colors.blue, fontWeight:"900",fontSize:20}} >{exerciseCount}</Text>
         </View>
         <View style={styles.separator} ></View>
         <View style={{padding:10, justifyContent:"center", alignItems:"center"}}>
         <Text style={{color:colors.medium ,fontWeight:"600",padding:8}}>Calories</Text>
-        <Text style={{color:colors.blue, fontWeight:"900",fontSize:20}}>8</Text>
+        <Text style={{color:colors.blue, fontWeight:"900",fontSize:20}}>{calories}</Text>
         </View>
         <View style={styles.separator} ></View>
         <View style={{padding:10, justifyContent:"center", alignItems:"center"}}>
         <Text style={{color:colors.medium ,fontWeight:"600",padding:8}}>Time</Text>
-        <Text style={{color:colors.blue, fontWeight:"900",fontSize:20 }}>8</Text>
+        <Text style={{color:colors.blue, fontWeight:"900",fontSize:20 }}>{time}</Text>
         </View>
     </View>
   )

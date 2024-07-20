@@ -5,10 +5,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
-  Button,
 } from "react-native";
 import React, { useRef } from "react";
-
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../config/colors";
@@ -24,7 +22,6 @@ export default function ExerciseListing({ route }) {
   const workoutDet = route.params;
 
   const workouts = workoutMapping[workoutDet.title];
-
 
 
   // Check if workouts data is available and has correct structure
@@ -64,23 +61,34 @@ export default function ExerciseListing({ route }) {
         </View>
         <View style={styles.seperator}></View>
         <View style={styles.container}>
-          <FlatList
-            data={workouts}
-            keyExtractor={(item) => item.id.toString()}
-            ItemSeparatorComponent={ListItemSeparator}
-            renderItem={({ item }) => (
-              <ListItem
-                title={item.title}
-                image={item.gif}
-                subTitle={`${item.exerciseCount}`}
-                text=" "
-              />
-            )}
-          />
+          {
+            workouts.map((item , index)=>(
+              <React.Fragment key={index}>
+            <ListItem
+              title={item.title}
+              image={item.gif}
+              subTitle={`${item.exerciseCount}`}
+              text=" "
+            />
+            <ListItemSeparator /> 
+          </React.Fragment>
+
+            ))
+          }
         </View>
       </ScrollView>
-      <View style={styles.buttonCont} >
-       <AppButton title="Start" bgcolor="blue" color="white"  onPress={() => navigation.navigate('WorkoutProgressStack', { workouts, workoutDet })} />
+      <View style={styles.buttonCont}>
+        <AppButton
+          title="Start"
+          bgcolor="blue"
+          color="white"
+          onPress={() =>
+            navigation.navigate("WorkoutProgressStack", {
+              workouts,
+              workoutDet,
+            })
+          }
+        />
       </View>
     </View>
   );
@@ -131,7 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     height: 1,
   },
-  buttonCont:{
+  buttonCont: {
     padding: 10,
-  }
+  },
 });

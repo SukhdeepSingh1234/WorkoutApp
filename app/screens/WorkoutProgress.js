@@ -1,5 +1,4 @@
 import {
-  ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,21 +13,19 @@ import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import AppButton from "../components/Button";
-import { FontAwesome6 } from "@expo/vector-icons";
 
 export default function WorkoutProgress({ route }) {
   const navigation = useNavigation();
   const { workout, index, total, workouts } = route.params;
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-
   const handleNext = () => {
     if (index < total - 1) {
       navigation.navigate("RestScreen", {
-    currentWorkoutIndex: index+1,
-    totalWorkouts: workouts.length,
-    nextWorkout: workouts[index + 1]
-  });
+        currentWorkoutIndex: index + 1,
+        totalWorkouts: workouts.length,
+        nextWorkout: workouts[index + 1],
+      });
     } else {
       navigation.navigate("WorkoutCompletion");
     }
@@ -60,41 +57,43 @@ export default function WorkoutProgress({ route }) {
           </View>
         </View>
       </Modal>
-    <View style={{backgroundColor: colors.white}}>   
-      <View style={styles.container}>
+      <View style={{ backgroundColor: colors.white }}>
+        <View style={styles.container}>
+          {workout && (
+            <>
+              <Image source={workout.gif} style={styles.bgImage} />
+              <TouchableOpacity style={styles.backButton} onPress={handleQuit}>
+                <MaterialCommunityIcons
+                  name="arrow-left"
+                  size={30}
+                  color="white"
+                />
+              </TouchableOpacity>
+            </>
+          )}
+        </View>
+        <View
+          style={{ width: "100%", height: 2, backgroundColor: colors.light }}
+        />
         {workout && (
-          <>
-            <Image source={workout.gif} style={styles.bgImage} />
-            <TouchableOpacity style={styles.backButton} onPress={handleQuit}>
-              <MaterialCommunityIcons
-                name="arrow-left"
-                size={30}
+          <View style={{ backgroundColor: colors.white, height: "100%" }}>
+            <View style={styles.headingCont}>
+              <Text style={styles.heading}>{workout.title}</Text>
+            </View>
+            <View style={styles.countCont}>
+              <Text style={styles.count}>{workout.exerciseCount}</Text>
+            </View>
+            <View style={styles.buttonCont}>
+              <AppButton
+                title="DONE"
+                bgcolor="blue"
                 color="white"
+                onPress={handleNext}
               />
-            </TouchableOpacity>
-          </>
+            </View>
+          </View>
         )}
       </View>
-      <View style={{width: "100%", height:2, backgroundColor: colors.light}} />
-      {workout && (
-        <View style={{backgroundColor: colors.white, height:"100%" }} >
-          <View style={styles.headingCont}>
-            <Text style={styles.heading}>{workout.title}</Text>
-          </View>
-          <View style={styles.countCont}>
-            <Text style={styles.count}>{workout.exerciseCount}</Text>
-          </View>
-          <View style={styles.buttonCont}>
-            <AppButton
-              title="DONE"
-              bgcolor="blue"
-              color="white"
-              onPress={handleNext}
-            />
-          </View>
-        </View>
-      )}
-       </View>
     </Screen>
   );
 }
@@ -108,8 +107,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     width: "100%",
     height: 380,
-    borderBottomLeftRadius:30,
-    borderBottomRightRadius:30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
     overflow: "hidden",
   },
   bgImage: {
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "900",
     marginVertical: 16,
-    marginBottom:20,
+    marginBottom: 20,
     color: colors.blue,
   },
   countCont: {
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   buttonCont: {
-    marginTop:10,
+    marginTop: 10,
     marginLeft: 50,
     marginRight: 50,
   },

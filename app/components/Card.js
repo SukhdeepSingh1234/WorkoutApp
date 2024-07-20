@@ -1,11 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Image,Text, ImageBackground } from "react-native";
+import { View, StyleSheet,Text, ImageBackground } from "react-native";
 
 
 import colors from "../config/colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-function Card({ title, time,exerciseCount, image,onPress }) {
+function Card({ title, time, exerciseCount, image,onPress }) {
   return (
 
     <TouchableWithoutFeedback onPress={onPress} >

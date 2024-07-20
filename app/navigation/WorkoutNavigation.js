@@ -1,4 +1,3 @@
-// navigation/WorkoutNavigation.js
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation, useRoute, getFocusedRouteNameFromRoute } from '@react-navigation/native';

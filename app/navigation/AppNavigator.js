@@ -3,9 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-
-import MainScreen from "../screens/MainScreen";
-import Challenges from "../screens/Challenges";
 import WorkoutProgrees from "../screens/WorkoutProgrees";
 import UserProfile from "../screens/UserProfile";
 import WorkoutNavigation from "./WorkoutNavigation";

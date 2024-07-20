@@ -11,92 +11,122 @@ export default function WorkoutProgrees() {
   const { progress } = useUser();
   const workoutDetails = [
     {
+      id:1,
+      exerciseCount: 14,
       title: "ABS BEGINNER",
-      workoutTime: 20,
+      time: 20,
       Kcal: 200,
       image: require("../assets/beginner/abs.webp"),
     },
     {
+      id: 2,
+      exerciseCount: 12,
       title: "CHEST BEGINNER",
-      workoutTime: 11,
+      time: 23,
       Kcal: 150,
       image: require("../assets/beginner/chest.webp"),
     },
     {
+      id:3,
+      exerciseCount: 15,
       title: "ARM BEGINNER",
-      workoutTime: 17,
+      time: 22,
       Kcal: 180,
       image: require("../assets/beginner/arms.webp"),
     },
     {
+      id:4,
+      exerciseCount: 12,
       title: "LEG BEGINNER",
-      workoutTime: 26,
+      time: 26,
       Kcal: 250,
       image: require("../assets/beginner/legs.jpeg"),
     },
     {
+      id:5,
+      exerciseCount: 13,
       title: "SHOULDER & BACK BEGINNER",
-      workoutTime: 17,
+      time: 17,
       Kcal: 190,
       image: require("../assets/beginner/sholdback.webp"),
     },
     {
+      id:6,
+      exerciseCount: 14,
       title: "ABS INTERMEDIATE",
-      workoutTime: 25,
+      time: 30,
       Kcal: 218,
       image: require("../assets/intermediate/abs.jpg"),
     },
     {
+      id: 7,
+      exerciseCount: 12,
       title: "CHEST INTERMEDIATE",
-      workoutTime: 15,
+      time: 35,
       Kcal: 223,
       image: require("../assets/intermediate/chest.png"),
     },
     {
+      id:8,
+      exerciseCount: 15,
       title: "ARM INTERMEDIATE",
-      workoutTime: 20,
+      time: 30,
       Kcal: 230,
       image: require("../assets/intermediate/arms.jpg"),
     },
     {
+      id:9,
+      exerciseCount: 12,
       title: "LEG INTERMEDIATE",
-      workoutTime: 30,
+      time: 30,
       Kcal: 300,
       image: require("../assets/intermediate/legs.jpg"),
     },
     {
+      id:10,
+      exerciseCount: 13,
       title: "SHOULDER & BACK INTERMEDIATE",
-      workoutTime: 22,
+      time: 32,
       Kcal: 250,
       image: require("../assets/intermediate/sholdback.webp"),
     },
     {
+      id:11,
+      exerciseCount: 14,
       title: "ABS ADVANCED",
-      workoutTime: 30,
+      time: 40,
       Kcal: 320,
       image: require("../assets/advanced/abs.jpg"),
     },
     {
+      id: 12,
+      exerciseCount: 12,
       title: "CHEST ADVANCED",
-      workoutTime: 20,
+      time: 35,
       Kcal: 270,
       image: require("../assets/advanced/chest.jpg"),
     },
     {
+      id: 13,
+      exerciseCount: 15,
       title: "ARM ADVANCED",
-      workoutTime: 25,
+      time: 40,
       Kcal: 280,
       image: require("../assets/advanced/arms.png"),
     },
     {
+      id: 14,
+      exerciseCount: 12,
       title: "LEG ADVANCED",
-      workoutTime: 35,
+      time: 40,
       Kcal: 350,
       image: require("../assets/advanced/legs.jpg"),
     },
     {
+      id:15,
+      exerciseCount: 13,
       title: "SHOULDER & BACK ADVANCED",
-      workoutTime: 27,
+      time: 40,
       Kcal: 300,
       image: require("../assets/advanced/sholdback.webp"),
     },
@@ -153,8 +183,8 @@ export default function WorkoutProgrees() {
         </View>
         <View style={styles.summary} >
             {
-              summaries.map((summary)=>(
-                <SummaryList image={summary.image} title={summary.title} workoutTime={summary.workoutTime} kcal={summary.Kcal} time={summary.time} date={summary.date} />
+              summaries.map((summary, index)=>(
+                <SummaryList key={index}  image={summary.image} title={summary.title} workoutTime={summary.workoutTime} kcal={summary.Kcal} time={summary.time} date={summary.date} />
               ))
             }
         </View>

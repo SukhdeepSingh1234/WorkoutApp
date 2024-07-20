@@ -1,6 +1,5 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Screen from '../components/Screen'
 import colors from '../config/colors'
 import AppButton from '../components/Button'
 import WorkoutDoneCard from '../components/WorkoutDoneCard'
@@ -12,6 +11,7 @@ export default function WorkoutCompletion({ navigation, route }) {
 
   const { user, progress } = useUser(); // Assuming you have a context for user data
   const {workoutDet}= route.params
+
 
   const handleWorkoutCompletion = async () => {
       try {
@@ -58,7 +58,7 @@ export default function WorkoutCompletion({ navigation, route }) {
         <Image style={styles.image} source={require("../assets/congo.png")} />
       </View>
       <View style={styles.cardCont} >
-        <WorkoutDoneCard/>
+        <WorkoutDoneCard exerciseCount={workoutDet.exerciseCount } calories={workoutDet.Kcal} time={workoutDet.time}  />
       </View>
       <View style={{justifyContent:"center", alignItems:"center"}} >
         <Text style={styles.text} >" The More The Pain</Text>

@@ -1,10 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableHighlight, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableHighlight,
+  Text,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
-
-
-
 
 function ListItem({
   title,
@@ -13,36 +16,33 @@ function ListItem({
   IconComponent,
   onPress,
   icon,
-  text
+  text,
 }) {
   return (
-    
-      <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
-        <View style={styles.container}>
-          {IconComponent}
-          {image && <Image style={styles.image} source={image} />}
-          <View style={styles.detailsContainer}>
-            <Text style={styles.title} numberOfLines={1}>
-              {title}
+    <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+      <View style={styles.container}>
+        {IconComponent}
+        {image && <Image style={styles.image} source={image} />}
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title} numberOfLines={1}>
+            {title}
+          </Text>
+          {subTitle && (
+            <Text style={styles.subTitle} numberOfLines={2}>
+              {subTitle}
             </Text>
-            {subTitle && (
-              <Text style={styles.subTitle} numberOfLines={2}>
-                {subTitle}
-              </Text>
-            )}
-          </View>
-          { icon && <MaterialCommunityIcons
+          )}
+        </View>
+        {icon && (
+          <MaterialCommunityIcons
             color={colors.medium}
             name="chevron-right"
             size={25}
-          />}
-          {
-            text ? <Text>{text}</Text> : <Text>N/A</Text> 
-          }
-        </View>
-      </TouchableHighlight>
-
-
+          />
+        )}
+        {text ? <Text>{text}</Text> : <Text>N/A</Text>}
+      </View>
+    </TouchableHighlight>
   );
 }
 
