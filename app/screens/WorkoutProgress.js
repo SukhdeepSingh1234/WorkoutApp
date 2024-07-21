@@ -18,8 +18,10 @@ export default function WorkoutProgress({ route }) {
   const navigation = useNavigation();
   const { workout, index, total, workouts } = route.params;
   const [isModalVisible, setIsModalVisible] = useState(false);
+  console.log(index,total )
 
   const handleNext = () => {
+    console.log("index -> " + index + " total -> " + total)
     if (index < total - 1) {
       navigation.navigate("RestScreen", {
         currentWorkoutIndex: index + 1,

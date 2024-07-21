@@ -7,6 +7,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 export default function RestScreen({ route, navigation }) {
   const { currentWorkoutIndex, totalWorkouts, nextWorkout } = route.params;
+  console.log(nextWorkout)
   const [timer, setTimer] = useState(30);
   
 
@@ -33,7 +34,10 @@ export default function RestScreen({ route, navigation }) {
   };
 
   const handleNext = () => {
-    if (currentWorkoutIndex < totalWorkouts - 1) {
+    console.log("CWI -> " +currentWorkoutIndex)
+    console.log("TW -> " + totalWorkouts-1)
+    if (currentWorkoutIndex <= totalWorkouts - 1) {
+      console.log("TW -> " + totalWorkouts-1)
       setTimer(30);
       navigation.navigate(`WorkoutProgress_${currentWorkoutIndex}`);
     } else {
